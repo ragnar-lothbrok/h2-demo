@@ -2,25 +2,14 @@ package com.h2.demo.service;
 
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
-
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.h2.demo.model.Customer;
 import com.h2.demo.repository.CustomerRepository;
-import com.h2.demo.utilities.RandomObjectFiller;
 
-@Repository
+@Service
 public class CustomerService {
-
-	@PostConstruct
-	public void insert() throws Exception {
-		Customer customer = RandomObjectFiller.createObject(Customer.class);
-		customerRepository.save(customer);
-
-	}
 
 	@Autowired
 	private CustomerRepository customerRepository;
