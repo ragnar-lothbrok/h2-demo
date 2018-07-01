@@ -1,9 +1,9 @@
 Drop table customer if exists;
 CREATE TABLE customer (
-    id      bigint             NOT NULL,
-    birth_date  DATE           ,
-    first_name  VARCHAR(14)     NOT NULL,
-    last_name   VARCHAR(16)     ,
-    gender      VARCHAR(14)   ,
-    PRIMARY KEY (id) 
+    CUSTOMER_NO      bigint             NOT NULL,
+    BIRTH_DATE  DATE           ,
+    FIRST_NAME    VARCHAR(14)     NOT NULL,
+    LAST_NAME   VARCHAR(16)     ,
+    GENDER      VARCHAR(14)   ,
+    PRIMARY KEY (CUSTOMER_NO) 
 );

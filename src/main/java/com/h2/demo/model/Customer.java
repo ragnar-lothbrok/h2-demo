@@ -3,14 +3,29 @@ package com.h2.demo.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 2498473733291946169L;
 
+	@Id
+	@Column(name = "CUSTOMER_NO")
 	private Long customerNo;
+
+	@Column(name = "BIRTH_DATE")
 	private Date birthDate;
+
+	@Column(name = "FIRST_NAME")
 	private String firstName;
+
+	@Column(name = "LAST_NAME")
 	private String lastName;
+
+	@Column(name = "GENDER")
 	private String gender;
 
 	public String getLastName() {

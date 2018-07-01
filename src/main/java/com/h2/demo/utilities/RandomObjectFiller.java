@@ -15,7 +15,7 @@ public class RandomObjectFiller {
 	public static <T> T createObject(Class<T> clazz) throws Exception {
 		T instance = clazz.newInstance();
 		for (Field field : clazz.getDeclaredFields()) {
-			if(field.getName().equals("serialVersionUID")) {
+			if (field.getName().equals("serialVersionUID")) {
 				continue;
 			}
 			field.setAccessible(true);
@@ -27,7 +27,7 @@ public class RandomObjectFiller {
 
 	private static Object getRandomValueForField(Field field) throws Exception {
 		Class<?> type = field.getType();
-		
+
 		if (type.isEnum()) {
 			Object[] enumValues = type.getEnumConstants();
 			return enumValues[random.nextInt(enumValues.length)];

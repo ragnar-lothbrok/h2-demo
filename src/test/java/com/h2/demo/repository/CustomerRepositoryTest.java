@@ -1,8 +1,9 @@
 package com.h2.demo.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,47 +30,36 @@ public class CustomerRepositoryTest {
 	@Before
 	public void setup() throws Exception {
 		Customer customer = RandomObjectFiller.createObject(Customer.class);
+		customer = customerRepository.save(customer);
 		customerId = customer.getCustomerNo();
-		customerRepository.insert(customer);
 	}
 
 	@Test
-	public void findAll() {
-		List<Customer> customers = customerRepository.findAll();
-		assertEquals(true, customers.size() > 0);
-	}
-
 	public void findById() {
-		Customer customer = customerRepository.findById(customerId);
-		assertEquals(true, customer != null);
+		Optional<Customer> customer = customerRepository.findById(customerId);
+		assertEquals(true, customer.get() != null);
 	}
 
-	public void deleteById() {
-		int result = customerRepository.deleteById(customerId);
-		assertEquals(1, result);
-	}
-
+	@Test
 	public void insert() throws Exception {
 		Customer customer = RandomObjectFiller.createObject(Customer.class);
-		customerRepository.insert(customer);
+		customer = customerRepository.save(customer);
 
-		Customer savedCustomer = customerRepository.findById(customerId);
-		assertEquals(customer.getCustomerNo(), savedCustomer.getCustomerNo());
+		Optional<Customer> savedCustomer = customerRepository.findById(customer.getCustomerNo());
+		assertThat(savedCustomer.isPresent()).isEqualTo(true);
 	}
 
-	public void update() throws Exception {
+	@Test
+	public void delete() throws Exception {
 		Customer customer = RandomObjectFiller.createObject(Customer.class);
-		customerRepository.insert(customer);
+		customer = customerRepository.save(customer);
 
-		String firstName = customer.getFirstName();
+		Optional<Customer> savedCustomer = customerRepository.findById(customer.getCustomerNo());
+		assertThat(savedCustomer.isPresent()).isEqualTo(true);
 
-		customer.setFirstName("D");
+		customerRepository.deleteById(savedCustomer.get().getCustomerNo());
 
-		customerRepository.update(customer);
-
-		customer = customerRepository.findById(customerId);
-
-		assertEquals(firstName, customer.getFirstName());
+		savedCustomer = customerRepository.findById(customer.getCustomerNo());
+		assertThat(savedCustomer.isPresent()).isEqualTo(false);
 	}
-
 }
